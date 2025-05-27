@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-0c55b159cbfafe1f0" # Replace with a valid AMI ID
-  instance_type = "t2.micro"
+  ami           = var.ami_id
+  instance_type = var.instance_type
 
   tags = {
     Name = "TerraformEC2"

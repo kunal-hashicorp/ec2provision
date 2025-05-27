@@ -2,9 +2,24 @@ provider "aws" {
   region = var.aws_region
 }
 
+# Fetch latest Ubuntu AMI dynamically
+data "aws_ami" "latest_ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical (Ubuntu)
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+}
+
+# Define a local variable for AMI
+locals {
+  ami_id = data.aws_ami.latest_ubuntu.id
+}
+
 # IAM Role for EC2
 resource "aws_iam_role" "ec2_role" {
-  name = "ec2-instance-role"
+  name = "ec2-instance-role_ks"
 
   assume_role_policy = <<EOF
   {
@@ -37,7 +52,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 # EC2 Instance Resource
 resource "aws_instance" "example" {
-  ami                  = var.ami_id
+  ami                  = local.ami_id
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 

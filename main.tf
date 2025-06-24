@@ -15,7 +15,7 @@ data "aws_ami" "latest_ubuntu" {
 # Define a local variable for AMI
 locals {
   //ami_id = data.aws_ami.latest_ubuntu.id
-  ami_id = ami-0d016af584f4febe3
+  ami_id = "ami-0d016af584f4febe3"
 }
 
 # IAM Role for EC2

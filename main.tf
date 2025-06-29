@@ -18,7 +18,7 @@ locals {
   ami_id = "ami-0d016af584f4febe3"
 }
 
-# IAM Role for EC2
+/* # IAM Role for EC2
 resource "aws_iam_role" "ec2_role" {
   name = "ec2-instance-role_ks"
 
@@ -49,7 +49,7 @@ resource "aws_iam_policy_attachment" "s3_read_access" {
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "ec2-instance-profile"
   role = aws_iam_role.ec2_role.name
-}
+}*/
 
 # EC2 Instance Resource
 resource "aws_instance" "example" {
